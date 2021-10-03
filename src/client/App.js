@@ -199,14 +199,28 @@ class App extends React.Component {
       ]
     }
     this.translateTxt = this.translateTxt.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeText = this.handleChangeText.bind(this)
+    this.handleChangeFrom = this.handleChangeFrom.bind(this)
+    this.handleChangeTo = this.handleChangeTo.bind(this)
   }
 
   // Set state: from,to,text
-  handleChange(e){
-    const { name, value } = e.target;
+  handleChangeText(e){
+    const {value} = e.target;
     this.setState({
-        [name]:value
+        text:value
+    })
+  }
+  handleChangeFrom(e){
+    const { value } = e;
+    this.setState({
+      from:value
+    })
+  }
+  handleChangeTo(e){
+    const { value } = e;
+    this.setState({
+        to:value
     })
   }
 
@@ -232,16 +246,16 @@ class App extends React.Component {
         <h1 className="title">Translation App</h1>
         <form onSubmit={this.translateTxt}>
           <div className="item">
-            <Select options={this.var.langs} defaultValue={this.var.langs[0]} name='from' onChange={this.handleChange}/>
+            <Select options={this.var.langs} defaultValue={this.var.langs[0]} onChange={this.handleChangeFrom}/>
           </div>
           <div className="item">
-            <textarea className="textArea" placeholder="Write here..." name='text' onChange={this.handleChange}></textarea>
+            <textarea className="textArea" placeholder="Write here..." onChange={this.handleChangeText}></textarea>
           </div>
           <div className="item">
             <button type='submit' className="button">Translate</button>
           </div>
           <div className="item">
-            <Select options={this.var.langs} isOptionDisabled={(option) => option.value == 'auto'} name='to' defaultValue={this.var.langs[43]} onChange={this.handleChange}/>
+            <Select options={this.var.langs} isOptionDisabled={(option) => option.value == 'auto'} defaultValue={this.var.langs[43]} onChange={this.handleChangeTo}/>
           </div>
           <div className="item">
             <textarea className="textArea" placeholder="Translation" id="textTranslated"></textarea>
